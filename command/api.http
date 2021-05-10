@@ -1,0 +1,10 @@
+###
+
+POST http://localhost:8080/deposit
+Content-Type: application/json
+
+{
+  "accountID" : "379409c2-f553-45c0-9e43-0210052ced0a",
+  "holderID" : "75ec488b-3d1e-4e0e-9476-55130e53321d",
+  "amount" : 300
+}
