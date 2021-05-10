@@ -13,10 +13,13 @@ import org.axonframework.eventsourcing.SnapshotTriggerDefinition;
 import org.axonframework.eventsourcing.Snapshotter;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.modelling.command.Repository;
+import org.axonframework.springboot.autoconfig.AxonAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-//@Configuration
-//@AutoConfigureAfter(AxonAutoConfiguration.class)
+@Configuration
+@AutoConfigureAfter(AxonAutoConfiguration.class)
 public class AxonConfig {
   /*@Bean
   SimpleCommandBus commandBus(TransactionManager transactionManager){
