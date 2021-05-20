@@ -1,2 +1,12 @@
-package com.cqrs.query.query;public class AccountQuery {
+package com.cqrs.query.query;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+@AllArgsConstructor
+public class AccountQuery {
+  private final String holderId;
 }

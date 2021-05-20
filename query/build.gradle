@@ -10,4 +10,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     implementation group: 'org.axonframework', name: 'axon-spring-boot-starter', version: "${axonVersion}"
     implementation group: 'org.axonframework', name: 'axon-configuration', version: "${axonVersion}"
+    implementation group: 'org.springframework.retry', name: 'spring-retry'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'io.projectreactor', name: 'reactor-core'
 }

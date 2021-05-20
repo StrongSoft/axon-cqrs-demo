@@ -1,3 +1,5 @@
+package com.cqrs.command.aggregate;
+
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 import com.cqrs.command.commands.HolderCreationCommand;
@@ -22,7 +24,7 @@ public class HolderAggregate {
   @CommandHandler
   public HolderAggregate(HolderCreationCommand command){
     log.debug("handling {}", command);
-    apply(new HolderCreationEvent(command.getHolderID(), command.getHolderName(), command.getTel(), command.getAddress()));
+    apply(new HolderCreationEvent(command.getHolderID(), command.getHolderName(), command.getTel(), command.getAddress(), command.getCompany()));
   }
 
   @EventSourcingHandler

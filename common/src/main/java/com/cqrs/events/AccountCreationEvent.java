@@ -8,6 +8,6 @@ import lombok.ToString;
 @ToString
 @Getter
 public class AccountCreationEvent {
-  private final String holderID;
   private final String accountID;
+  private final String holderID;
 }

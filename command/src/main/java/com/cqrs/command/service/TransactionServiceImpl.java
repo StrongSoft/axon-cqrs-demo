@@ -28,7 +28,8 @@ public class TransactionServiceImpl implements TransactionService{
     return commandGateway.send(new HolderCreationCommand(UUID.randomUUID().toString()
     ,holderDTO.getHolderName()
     ,holderDTO.getTel()
-    ,holderDTO.getAddress()));
+    ,holderDTO.getAddress()
+    ,holderDTO.getCompany()));
   }
 
   @Override
