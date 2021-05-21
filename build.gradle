@@ -57,3 +57,15 @@ project(':query'){
         compile project(':common')
     }
 }
+
+project('jejuBank'){
+    dependencies {
+        compile project(':common')
+    }
+}
+
+project('seoulBank'){
+    dependencies {
+        compile project(':common')
+    }
+}

@@ -3,10 +3,12 @@ package com.cqrs.command.service;
 import com.cqrs.command.commands.AccountCreationCommand;
 import com.cqrs.command.commands.DepositMoneyCommand;
 import com.cqrs.command.commands.HolderCreationCommand;
+import com.cqrs.command.commands.MoneyTransferCommand;
 import com.cqrs.command.commands.WithdrawMoneyCommand;
 import com.cqrs.command.dto.AccountDTO;
 import com.cqrs.command.dto.DepositDTO;
 import com.cqrs.command.dto.HolderDTO;
+import com.cqrs.command.dto.TransferDTO;
 import com.cqrs.command.dto.WithdrawalDTO;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -53,5 +55,10 @@ public class TransactionServiceImpl implements TransactionService{
     return commandGateway.send(new WithdrawMoneyCommand(transactionDTO.getAccountID()
         ,transactionDTO.getHolderID()
         ,transactionDTO.getAmount()));
+  }
+
+  @Override
+  public String transferMoney(TransferDTO transferDTO) {
+    return commandGateway.sendAndWait(MoneyTransferCommand.of(transferDTO));
   }
 }

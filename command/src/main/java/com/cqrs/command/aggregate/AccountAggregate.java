@@ -4,10 +4,14 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 import com.cqrs.command.commands.AccountCreationCommand;
 import com.cqrs.command.commands.DepositMoneyCommand;
+import com.cqrs.command.commands.MoneyTransferCommand;
+import com.cqrs.command.commands.TransferApprovedCommand;
 import com.cqrs.command.commands.WithdrawMoneyCommand;
+import com.cqrs.command.event.DepositCompletedEvent;
 import com.cqrs.events.AccountCreationEvent;
 import com.cqrs.events.DepositMoneyEvent;
 import com.cqrs.events.WithdrawMoneyEvent;
+import com.cqrs.events.transfer.MoneyTransferEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -68,5 +72,24 @@ public class AccountAggregate {
   protected void withdrawMoney(WithdrawMoneyEvent event){
     log.debug("applying {}", event);
     balance -= event.getAmount();
+  }
+
+  @CommandHandler
+  private void transferMoney(MoneyTransferCommand command){
+    log.debug("handling {}", command);
+    apply(MoneyTransferEvent.builder()
+        .srcAccountID(command.getSrcAccountID())
+        .dstAccountID(command.getDstAccountID())
+        .amount(command.getAmount())
+        .commandFactory(command.getBankType().getCommandFactory(command))
+        .transferID(command.getTransferID())
+        .build());
+  }
+
+  @CommandHandler
+  protected void transferMoney(TransferApprovedCommand command){
+    log.debug("handling {}",command);
+    apply(new DepositMoneyEvent(holderID, command.getAccountID(), command.getAmount()));
+    apply(new DepositCompletedEvent(command.getAccountID(), command.getTransferID()));
   }
 }

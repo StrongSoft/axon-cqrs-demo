@@ -3,11 +3,13 @@ package com.cqrs.command.controller;
 import com.cqrs.command.dto.AccountDTO;
 import com.cqrs.command.dto.DepositDTO;
 import com.cqrs.command.dto.HolderDTO;
+import com.cqrs.command.dto.TransferDTO;
 import com.cqrs.command.dto.WithdrawalDTO;
 import com.cqrs.command.service.TransactionService;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,5 +39,10 @@ public class TransactionController {
   @PostMapping("/withdrawal")
   public CompletableFuture<String> withdrawal(@RequestBody WithdrawalDTO transactionDTO){
     return transactionService.withdrawMoney(transactionDTO);
+  }
+
+  @PostMapping("/transfer")
+  public ResponseEntity<String> transfer(@RequestBody TransferDTO transferDTO){
+    return ResponseEntity.ok().body(transactionService.transferMoney(transferDTO));
   }
 }
