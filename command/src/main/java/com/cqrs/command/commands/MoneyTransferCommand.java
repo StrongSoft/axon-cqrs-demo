@@ -1,7 +1,11 @@
 package com.cqrs.command.commands;
 
 import com.cqrs.command.dto.TransferDTO;
+import com.cqrs.command.transfer.JejuBankCancelTransferCommand;
+import com.cqrs.command.transfer.JejuBankCompensationCancelCommand;
 import com.cqrs.command.transfer.JejuBankTransferCommand;
+import com.cqrs.command.transfer.SeoulBankCancelTransferCommand;
+import com.cqrs.command.transfer.SeoulBankCompensationCancelCommand;
 import com.cqrs.command.transfer.SeoulBankTransferCommand;
 import com.cqrs.command.transfer.factory.TransferCommandFactory;
 import java.util.UUID;
@@ -23,8 +27,8 @@ public class MoneyTransferCommand {
   private final BankType bankType;
 
   public enum BankType{
-    JEJU(command -> new TransferCommandFactory(new JejuBankTransferCommand())),
-    SEOUL(command -> new TransferCommandFactory(new SeoulBankTransferCommand()));
+    JEJU(command -> new TransferCommandFactory(new JejuBankTransferCommand(), new JejuBankCancelTransferCommand(), new JejuBankCompensationCancelCommand())),
+    SEOUL(command -> new TransferCommandFactory(new SeoulBankTransferCommand(), new SeoulBankCancelTransferCommand(), new SeoulBankCompensationCancelCommand()));
 
     private final Function<MoneyTransferCommand, TransferCommandFactory> expression;
 

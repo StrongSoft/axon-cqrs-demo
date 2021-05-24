@@ -7,6 +7,8 @@ import com.cqrs.events.transfer.TransferApprovedEvent;
 import com.cqrs.events.transfer.TransferDeniedEvent;
 import com.cqrs.jeju.command.AccountCreationCommand;
 import com.cqrs.jeju.event.AccountCreationEvent;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,7 @@ public class Account {
   @Id
   private String accountID;
   private Long balance;
+  private final transient Random random = new Random();
 
   @CommandHandler
   public Account(AccountCreationCommand command) throws IllegalAccessException{
@@ -46,6 +49,10 @@ public class Account {
 
   @CommandHandler
   protected void on(JejuBankTransferCommand command) throws InterruptedException {
+    if(random.nextBoolean()){
+      TimeUnit.SECONDS.sleep(15);
+    }
+
     log.debug("handling {}", command);
     if(balance < command.getAmount()){
       apply(TransferDeniedEvent.builder()
